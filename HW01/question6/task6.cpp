@@ -4,24 +4,25 @@
 #include <string>
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) 
+{
 	
 	// Use n to receive input
-	int n;
-
-	cin >> n;
+	int n = atoi(argv[1]);
 
 	// Print the ascending result
-	for( int n = 0; n < 7; n = n + 1 ){
+	for( int i = 0; i <= n; i = i + 1 ){
 
-		printf("%d\n", n);
+		printf("%2d", i);
 				
 	}
 
-	// Print the descending result
-        for( int n = 6; n >= 0; n = n - 1 ){
+	printf("\n");
 
-                std::cout << n << std::endl;
+	// Print the descending result
+        for( int i = n; i >= 0; i = i - 1 ){
+
+                std::cout << i << " ";
 
         }
 
