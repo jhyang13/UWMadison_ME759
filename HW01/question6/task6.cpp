@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	// Print the ascending result
 	for( int i = 0; i <= n; i = i + 1 ){
 
-		printf("%2d", i);
+		printf("%-2d", i);
 				
 	}
 
