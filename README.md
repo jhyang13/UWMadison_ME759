@@ -1,7 +1,7 @@
 # repo759
 ME 759: Jiahui Yang's homework
 
-Let me know if you can have the access to my homework or not. ╰(●’◡’●)╮
+Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
 
 ## HW01
 - **question1.txt** is my answer for Assignment 1_1
