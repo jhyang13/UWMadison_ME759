@@ -1,5 +1,5 @@
 # repo759
-ME 759: Jiahui Yang's homework
+ME 759: Jiahui Yang
 
 Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
 
