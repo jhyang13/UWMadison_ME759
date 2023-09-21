@@ -1,5 +1,5 @@
 # repo759
-ME 759: Jiahui Yang
+ME 759: Jiahui Yang, Mechanical Engineering, jyang753@wisc.edu
 
 Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
 
