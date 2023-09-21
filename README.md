@@ -19,3 +19,12 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
     - **task6.cpp** is my C++ code for Assignment 1_6
     - task6 is my compiled C++ code for Assignment 1_6
     - **task6.sh** is the shell script that I used to complete Assignment 1_6
+ 
+## HW02
+- question1:
+  - **task1.pdf** is the scaling analysis plot
+  - HW02_1 is the folder that I used to complete Assignment 2_1
+- question2:
+  - HW02_2 is the folder that I used to complete Assignment 2_2
+- question3:
+  - **HW02_3_f.pdf** is my answer for Assignment 2_3_f
