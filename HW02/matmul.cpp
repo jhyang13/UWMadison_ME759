@@ -17,7 +17,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
 
-void mmul1(int n, int (*arra)[1000], int (*arrb)[1000])
+void mmul1(const double* A, const double* B, double* C, const unsigned int n)
 {
 
 	// Set up time counter
@@ -32,15 +32,18 @@ void mmul1(int n, int (*arra)[1000], int (*arrb)[1000])
 	int sum = 0;
 
 	// Create a new matrix C
-	int C[n][n];
+	double Cnew[n][n];
 
 	// Loop to calculate each element in C
-	for( int i = 0; i < n; i++ ){
-		for( int j = 0; j < n; j++ ){
-			for( int k = 0; k < n; k++ ){
+	for( unsigned int i = 0; i < n; i++ ){
+		for( unsigned int j = 0; j < n; j++ ){
+			for( unsigned int k = 0; k < n; k++ ){
 				
 				// Assign element to C
-				C[i][j] +=  arra[i][k] * arrb[k][j];
+				double AA = *(A+i)+j;
+				double BB = *(B+i)+j;
+
+				Cnew[i][j] +=  AA * BB;
 
 				// The single line of code which increments Cij
 				sum = sum + k;
@@ -57,17 +60,20 @@ void mmul1(int n, int (*arra)[1000], int (*arrb)[1000])
 
 	// Print the number of rows of your input matrices
 	printf("%d\n", n);
+	fflush(stdout);
 
         // Durations are converted to milliseconds already thanks to std::chrono::duration_cast
         cout << duration_sec.count() << "\n";
+	fflush(stdout);
 
 	// Print the last element of the output scanned array
-	printf("%d\n", C[n-1][n-1]);
+	printf("%f\n", Cnew[n-1][n-1]);
+	fflush(stdout);
 
 }
 
 
-void mmul2(int n, int (*arra)[1000], int (*arrb)[1000])
+void mmul2(const double* A, const double* B, double* C, const unsigned int n)
 {
 
 	// Set up time counter
@@ -82,19 +88,23 @@ void mmul2(int n, int (*arra)[1000], int (*arrb)[1000])
 	int sum = 0;
 
 	// Create a new matrix C
-	int C[n][n];
+	double Cnew[n][n];
 
         // Loop to calculate each element in C
-        for( int i = 0; i < n; i++ ){
-                for( int k = 0; k < n; k++ ){
+        for( unsigned int i = 0; i < n; i++ ){
+                for( unsigned int k = 0; k < n; k++ ){
 
 			// The single line of code which increments Cij
 			sum = sum + k;
                         
-			for( int j = 0; j < n; j++ ){
+			for( unsigned int j = 0; j < n; j++ ){
 
                                 // Assign element to C
-				C[i][j] +=  arra[i][k] * arrb[k][j];
+				double AA = *(A+i)+j;
+                                double BB = *(B+i)+j;
+
+                                Cnew[i][j] +=  AA * BB;
+
 
                         }
 
@@ -110,17 +120,20 @@ void mmul2(int n, int (*arra)[1000], int (*arrb)[1000])
 
         // Print the number of rows of your input matrices
         printf("%d\n", n);
+	fflush(stdout);
 
         // Durations are converted to milliseconds already thanks to std::chrono::duration_cast
         cout << duration_sec.count() << "\n";
+	fflush(stdout);
 
         // Print the last element of the output scanned array
-        printf("%d\n", C[n-1][n-1]);
+        printf("%f\n", Cnew[n-1][n-1]);
+	fflush(stdout);
 
 }
 
 
-void mmul3(int n, int (*arra)[1000], int (*arrb)[1000])
+void mmul3(const double* A, const double* B, double* C, const unsigned int n)
 {
 
 	// Set up time counter
@@ -135,19 +148,23 @@ void mmul3(int n, int (*arra)[1000], int (*arrb)[1000])
 	int sum = 0;
 
 	// Create a new matrix C
-	int C[n][n];
+	double Cnew[n][n];
 
         // Loop to calculate each element in C
-        for( int j = 0; j < n; j++ ){
-                for( int k = 0; k < n; k++ ){
+        for( unsigned int j = 0; j < n; j++ ){
+                for( unsigned int k = 0; k < n; k++ ){
                         
 			// The single line of code which increments Cij
 			sum = sum + k;
 
-                        for( int i = 0; i < n; i++ ){
+                        for( unsigned int i = 0; i < n; i++ ){
 
                                 // Assign element to C
-				C[i][j] +=  arra[i][k] * arrb[k][j];
+				double AA = *(A+i)+j;
+                                double BB = *(B+i)+j;
+
+                                Cnew[i][j] +=  AA * BB;
+
 
                         }
 
@@ -163,17 +180,20 @@ void mmul3(int n, int (*arra)[1000], int (*arrb)[1000])
 
         // Print the number of rows of your input matrices
         printf("%d\n", n);
+	fflush(stdout);
 
         // Durations are converted to milliseconds already thanks to std::chrono::duration_cast
         cout << duration_sec.count() << "\n";
+	fflush(stdout);
 
         // Print the last element of the output scanned array
-        printf("%d\n", C[n-1][n-1]);
+        printf("%f\n", Cnew[n-1][n-1]);
+	fflush(stdout);
 
 }
 
 
-void mmul4(int n, std::vector<std::vector<int> > arra4, std::vector<std::vector<int> > arrb4)
+void mmul4(const std::vector<double>& A, const std::vector<double>& B, double* C, const unsigned int n)
 {
 
 	// Set up time counter
@@ -188,15 +208,15 @@ void mmul4(int n, std::vector<std::vector<int> > arra4, std::vector<std::vector<
 	int sum = 0;
 
 	// Create a new matrix C
-	int C[n][n];
+	double Cnew[n][n];
 
         // Loop to calculate each element in C
-        for( int i = 0; i < n; i++ ){
-                for( int j = 0; j < n; j++ ){
-                        for( int k = 0; k < n; k++ ){
+        for( unsigned int i = 0; i < n; i++ ){
+                for( unsigned int j = 0; j < n; j++ ){
+                        for( unsigned int k = 0; k < n; k++ ){
 
                                 // Assign element to C
-				C[i][j] +=  arra4[i][k] * arrb4[k][j];
+				Cnew[i][j] += A[i * n + k] * B[k * n + j];
 
 				// The single line of code which increments Cij
 				sum = sum + k;
@@ -213,12 +233,15 @@ void mmul4(int n, std::vector<std::vector<int> > arra4, std::vector<std::vector<
 
         // Print the number of rows of your input matrices
         printf("%d\n", n);
+	fflush(stdout);
 
         // Durations are converted to milliseconds already thanks to std::chrono::duration_cast
         cout << duration_sec.count() << "\n";
+	fflush(stdout);
 
         // Print the last element of the output scanned array
-        printf("%d\n", C[n-1][n-1]);
+        printf("%f\n", Cnew[n-1][n-1]);
+	fflush(stdout);
 
 }
 

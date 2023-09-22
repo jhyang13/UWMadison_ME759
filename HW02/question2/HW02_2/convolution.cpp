@@ -6,6 +6,8 @@
 #include <stddef.h>
 #include <vector>
 #include <cmath>
+#include <cstdint>
+#include<cstring>
 using namespace std;
 
 #include <chrono>
@@ -17,7 +19,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
 
-void convolve(int N, int M, float (*arri)[10000], float (*arrm)[10000])
+void convolve(const float *image, float *output, std::size_t n, const float *mask, std::size_t m)
 {
 
 	// Set up time counter
@@ -31,28 +33,38 @@ void convolve(int N, int M, float (*arri)[10000], float (*arrm)[10000])
 	// Create a new matrix G
 	float G[10000][10000];
 
+	// Create a new matrix image
+	float newimage[n * 10000];
+	
+	// Assign image to newimage
+	memcpy(newimage, image, n * 10000 * sizeof(float));
+	
 	// Loop to calculate each element in C
-	for( int x = 0; x < N; x++ ){
-		for( int y = 0; y < N; y++ ){
-			for( int i = 0; i < M; i++ ){
-				for( int j = 0; j < M; j++ ){
+	for( std::size_t x = 0; x < n; x++ ){
+		for( std::size_t y = 0; y < n; y++ ){
+			for( std::size_t i = 0; i < m; i++ ){
+				for( std::size_t j = 0; j < m; j++ ){
 			
 					// Set up boundary conditions	
-					if(i < 0 && i >= N && j < 0 && j >=N)
+					if(i < 0 && i >= n && j < 0 && j >=n)
 					{ 
-						arri[i][j] = 0;
+						newimage[i * n + j] = 0.0f;
+						//image[i][j] = 0;
 					}
-					else if( i >= 0 && i < N)
+					else if( i >= 0 && i < n)
 					{
-						arri[i][j] = 1;
+						newimage[i * n + j] = 0.0f;
+						//image[i][j] = 1;
 					}
-					else if(j >= 0 && j < N)
+					else if(j >= 0 && j < n)
 					{
-						arri[i][j] = 1;
+						newimage[i * n + j] = 1.0f;
+						//image[i][j] = 1;
 					}
 					
 					// Apply the mask to image
-					G[x][y] = arrm[i][j] * arri[x+i-(M-1)/2][y+j-(M-1)/2];
+					G[x][y] = *(mask+i*m+j) * *(newimage+(x+i-(m-1)/2)*n+(y+j-(m-1)/2));
+
 				}
 			}
 		}
@@ -72,6 +84,6 @@ void convolve(int N, int M, float (*arri)[10000], float (*arrm)[10000])
 	printf("%f\n", G[0][0]);
 
 	// Print the last element of the output scanned array
-	printf("%f\n", G[N-1][N-1]);
+	printf("%f\n", G[n-1][n-1]);
 
 }

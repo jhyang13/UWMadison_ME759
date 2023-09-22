@@ -8,6 +8,7 @@
 // mask is an mxm grid stored in row-major order.
 // Stores the result in output, which is an nxn grid stored in row-major order.
 //void convolve(const float *image, float *output, std::size_t n, const float *mask, std::size_t m);
-void convolve(int N, int M, float (*arri)[10000], float (*arrm)[10000]);
+//void convolve(const float (*image)[10000], float (*output)[10000], std::size_t n, float (*mask)[10000], std::size_t m);
+void convolve(const float *image, float *output, std::size_t n, const float *mask, std::size_t m);
 
 #endif

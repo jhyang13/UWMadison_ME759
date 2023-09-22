@@ -5,6 +5,7 @@
 #include <ctime>
 #include <stddef.h>
 #include <cmath>
+#include <cstdint>
 using namespace std;
 
 #include <chrono>
@@ -16,7 +17,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
 
-void scan(const float *arr, int n)
+void scan(const float *arr, float *output, std::size_t n)
 {
 
 	// Set up time counter

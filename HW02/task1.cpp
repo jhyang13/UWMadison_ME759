@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 #include <cmath>
+#include <cstdint>
 #include "scan.h"
 using namespace std;
 
@@ -20,6 +21,9 @@ int main(int argc, char **argv)
         // Create the random array
 	float randa[length];
 
+	// Create the output array
+	float outa[length];
+
 	// Set up random seed
 	srand (static_cast <unsigned> (time(0)));
 
@@ -34,7 +38,7 @@ int main(int argc, char **argv)
 	}
 
 	// Call the scan function
-	scan(randa, length);
+	scan(randa, outa, length);
 		
 	return 0;	
 
