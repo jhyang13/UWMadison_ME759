@@ -32,5 +32,5 @@ The variables passed to the scan, convolution, and matmul functions are differen
 - question2:
   - HW02_2 is the folder that I used to complete Assignment 2_2
 - question3:
-  - **HW02_3_f.pdf** is my answer for Assignment 2_3_f
+  - **assignment2.pdf** is my answer for Assignment 2_3_f
   - HW02_3 is the folder that I used to complete Assignment 2_3
