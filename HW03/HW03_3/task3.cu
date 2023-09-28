@@ -52,10 +52,9 @@ int main(int argc, char **argv) {
     	cudaMemcpy(db, hb, sizeof(float) * n, cudaMemcpyHostToDevice);
 
 	// Assign 512 threads
-        const int num_threads = 16;
+        const int num_threads = 512;
         // Assign a 1D execution configuration that uses 512 threads per block
-    	//int num_blocks = (n + num_threads - 1) / num_threads;
-	int num_blocks = 1;
+    	int num_blocks = (n + num_threads - 1) / num_threads;
 
 	// Prepare CUDA timer
 	cudaEvent_t start;

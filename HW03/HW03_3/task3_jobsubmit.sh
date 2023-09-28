@@ -3,7 +3,7 @@
 for N in $(seq 10 29)  
 do 
 
-	DIR="16_${N}"
+	DIR="512_${N}"
 
 	mkdir $DIR
 
