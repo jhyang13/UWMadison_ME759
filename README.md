@@ -25,7 +25,6 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
     - **task6.sh** is the shell script that I used to complete Assignment 1_6
  
 ## HW02
-The variables passed to the scan, convolution, and matmul functions are different from the provided files in the Assignments/HW02 directory of the ME759 repo.
 - question1:
   - **task1.pdf** is the scaling analysis plot
   - HW02_1 is the folder that I used to complete Assignment 2_1
@@ -34,3 +33,11 @@ The variables passed to the scan, convolution, and matmul functions are differen
 - question3:
   - **assignment2.pdf** is my answer for Assignment 2_3_f
   - HW02_3 is the folder that I used to complete Assignment 2_3
+ 
+## HW03
+- question1:
+  - HW03_1 is the folder that I used to complete Assignment 3_1
+- question2:
+  - HW03_2 is the folder that I used to complete Assignment 3_2
+- question3:
+  - HW03_3 is the folder that I used to complete Assignment 3_3
