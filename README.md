@@ -47,3 +47,9 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
   - HW04_1 is the folder that I used to complete Assignment 4_1
 - question2:
   - HW04_2 is the folder that I used to complete Assignment 4_2
+ 
+## HW05
+- question1:
+  - HW05_1 is the folder that I used to complete Assignment 5_1
+- question2:
+  - HW05_2 is the folder that I used to complete Assignment 5_2
