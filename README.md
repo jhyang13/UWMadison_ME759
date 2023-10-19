@@ -53,3 +53,9 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
   - HW05_1 is the folder that I used to complete Assignment 5_1
 - question2:
   - HW05_2 is the folder that I used to complete Assignment 5_2
+
+  ## HW06
+- question1:
+  - HW06_1 is the folder that I used to complete Assignment 6_1
+- question2:
+  - HW06_2 is the folder that I used to complete Assignment 6_2
