@@ -59,3 +59,11 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
   - HW06_1 is the folder that I used to complete Assignment 6_1
 - question2:
   - HW06_2 is the folder that I used to complete Assignment 6_2
+
+## HW07
+- question1:
+  - HW07_1 is the folder that I used to complete Assignment 7_1
+- question2:
+  - HW07_2 is the folder that I used to complete Assignment 7_2
+  - question3:
+  - HW07_3 is the folder that I used to complete Assignment 7_3
