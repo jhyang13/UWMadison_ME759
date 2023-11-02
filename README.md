@@ -37,3 +37,8 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
 - task1_cub.cu, task1_thrust.cu
 - task2.cu, count.cu
 - task3.cpp
+
+## HW08
+- task1.cpp, matmul.cpp
+- task2.cpp, convolution.cpp
+- task3.cpp, msort.cpp
