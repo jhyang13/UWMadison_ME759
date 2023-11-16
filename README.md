@@ -47,3 +47,9 @@ Let me know if you can have access to my homework or not. ╰(●’◡’●)�
 - task1.cpp, cluster.cpp
 - task2.cpp, montecarlo.cpp
 - task3.cpp
+
+## HW10
+- task1.cpp, optimize.cpp
+- task2.cpp, task2_pure_omp.cpp, reduce.cpp
+
+
