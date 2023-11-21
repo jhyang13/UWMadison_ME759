@@ -1,135 +1,53 @@
-// task2.cu
-
-/*After completing my test,
-I requested suggestions from ChatGPT
-for improving the code.*/
-
-#include <iomanip>
-#include <cstdio>
-#include <ctime>
-#include <iostream>
-#include <random>
-#include <chrono>
-#include <cuda.h>
-#include <curand_kernel.h>
-#include <cuda_runtime.h>
 #include "stencil.cuh"
+#include <cuda.h>
+#include <stdio.h>
+#include <random>
 
-
-int main(int argc, char **argv) {
-
-	// Create the variables to receive the input number
-	unsigned int N = pow(2, atoi(argv[1]));
-	unsigned int R = atoi(argv[2]);
-	unsigned int Threads_per_Block = atoi(argv[3]);
+int main(int argc, char *argv[]) {
 	
- 	// Assign host memory and stack allocation for array image, mask and output
-	float* hi = new float[N];
-	float* hm = new float[2 * R + 1];
-	float* hO = new float[N];
-
-	// Create Pseudo-random number generator 
-	// used for generating pseudo-random number sequences
-        std::default_random_engine generator(std::time(nullptr));
-	// Set up random numbers in the range [-1, 1]
-	std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
-
-	// Assign values to array image with the created random values
-    	for (unsigned int i = 0; i < N; ++i){
-
-        	hi[i] = distribution(generator);
-
-    	}
-
-	// Assign values to array mask with the created random values
-	for (unsigned int j = 0; j < 2 * R + 1; ++j){
-
-        	hm[j] = distribution(generator);
-
-    	}
-
-    	// Allocate device memory for array a, b and c
-    	float *di; 
-	float *dm;
-	float *dO;
-
-    	cudaMalloc((void**)&di, sizeof(float) * N);
-	cudaMalloc((void**)&dm, sizeof(float) * (2 * R + 1));
-	cudaMalloc((void**)&dO, sizeof(float) * N);
-
-
-	/*
-	// Test if cudaMalloc is incorrect
-	cudaError_t cudaStatus = cudaMalloc((void**)&di, sizeof(float) * N);
-	if (cudaStatus != cudaSuccess) {
-    		std::cerr << "cudaMalloc failed: " << cudaGetErrorString(cudaStatus) << std::endl;
-	}*/
-
-
-    	// Copy back the data stored in the device array
-        // into the host array for array a and b
-    	cudaMemcpy(di, hi, sizeof(float) * N, cudaMemcpyHostToDevice);
-    	cudaMemcpy(dm, hm, sizeof(float) * (2 * R + 1), cudaMemcpyHostToDevice);
-
-	// Prepare CUDA timer
-	cudaEvent_t start;
-	cudaEvent_t stop;
-	cudaEventCreate(&start);
-	cudaEventCreate(&stop);
-
-	// Lanuch the timer
+	size_t n = atol(argv[1]);
+	size_t R = atol(argv[2]);
+	size_t threads_per_block = atol(argv[3]);
+	
+	// set up random number from -1 to 1 generator
+	std::random_device entropy_source;
+	std::mt19937_64 generator(entropy_source()); 
+	const int min = -1.0, max = 1.0; // The range for the random number generator is -1.0 to 1.0
+	// there are tons of oter distributino that could be found from https://en.cppreference.com/w/cpp/header/random
+	std::uniform_real_distribution<float> dist(min, max);
+	
+	float *image, *output, *mask;
+	size_t mask_size = 2 * R + 1;
+	
+	// allocate array 
+	cudaMallocManaged((void **)&image, n * sizeof(float));
+  	cudaMallocManaged((void **)&output, n * sizeof(float));
+  	cudaMallocManaged((void **)&mask, mask_size * sizeof(float));
+  	
+  	for (size_t i = 0; i < n; i++) {
+  		image[i] = dist(generator);
+  	}
+	
+	for (size_t i = 0; i < mask_size; ++i) {
+    	mask[i] = dist(generator);
+  	}
+	
+	//set up timer
+ 	cudaEvent_t start;
+  	cudaEvent_t stop;
+  	cudaEventCreate(&start);
+  	cudaEventCreate(&stop);
+	
+	// start timing and test
 	cudaEventRecord(start);
-
-   	// Call the matmul function
-    	stencil(di, dm, dO, N, R, Threads_per_Block);
-
-	// Tell the host waits for the kernel 
-	// to finish printing before returning from main
-        cudaDeviceSynchronize();
-
-    	// Copy back the data stored in the device array
-        // into the host array for array c
-    	cudaMemcpy(hO, dO, sizeof(float) * N, cudaMemcpyDeviceToHost);
-
-
-	/*
-	// Test if data can be transferred
-	cudaMemcpy(hi, di, sizeof(float) * N, cudaMemcpyDeviceToHost);
-
-	// Just output several data
-	for (int i = 0; i < 10; ++i) {
-    		printf("hi[%d] = %f\n", i, hi[i]);
-	}*/
-
-
-	// Stop the timer
+	stencil(image, mask, output, n, R, threads_per_block);
 	cudaEventRecord(stop);
 	cudaEventSynchronize(stop);
-
-	// Calculate the duration time in milliseconds
-    	float milliseconds = 0.0f;
-    	cudaEventElapsedTime(&milliseconds, start, stop);
-
-
-	// Print the last element of the resulting array
-	std::cout << hO[N - 1] << std::endl;
-
-	// Print the amount of time taken to execute the kernel in milliseconds using CUDA event
-        std::cout << milliseconds << std::endl;
-	
-	// Free memory
-    	delete[] hi;
-    	delete[] hm;
-    	delete[] hO;
-    	cudaFree(di);
-    	cudaFree(dm);
-    	cudaFree(dO);
-
-    	return 0;
-
+	float ms;
+  	cudaEventElapsedTime(&ms, start, stop);
+  	printf("%f\n%f\n", output[n - 1], ms);
+  	
+  	cudaFree(image);
+  	cudaFree(output);
+  	cudaFree(mask);
 }
-
-
-
-
-

@@ -1,117 +1,52 @@
-// stencil.cuh
-
-/*After completing my test,
-I requested suggestions from ChatGPT
-for improving the code.*/
-        
-#include <iomanip>
-#include <cstdio>
-#include <ctime>
-#include <iostream>
-#include <random>
-#include <chrono>
-#include <cuda.h>
-#include <curand_kernel.h>
-#include <cuda_runtime.h> 
 #include "stencil.cuh"
 
+// Reference from lecture 11 notess
 
-// Without using shared memory
-/*
-__global__ void stencil_kernel(const float* image, const float* mask, float* output, unsigned int n, unsigned int R) {
-    
-	// Calculate the element in the result matrix 
-	// that the current thread is processing
-    	int i = blockIdx.x * blockDim.x + threadIdx.x;
-
-    	// Check if the thread is within that block
-    	if (i < n) {
-
-        	// Create a variable to save the result
-        	float result = 0.0f;
-
-        	// Loop to calculate the convolution
-        	for (int j = -R; j <= R; ++j) {
-
-            		if (i + j >= 0 && i + j < n) {
-
-                		result += image[i + j] * mask[j + R];
-
-            		} else {
-
-                		// When i + j < 0 or i + j > n - 1, image[i] = 1
-                		result += 1.0f * mask[j + R];
-            		}
-        	}
-
-        	// Assign value to output
-        	output[i] = result;
-    	}
-}
-*/
-
-
-__global__ void stencil_kernel(const float* image, const float* mask, float* output, unsigned int n, unsigned int R) {
-    
-    	// Shared memory declaration
-    	__shared__ float shared_image[1024]; // THREADS_PER_BLOCK = 1024
-    
-    	// Calculate the element in the result matrix 
-	// that the current thread is processing
-    	int i = blockIdx.x * blockDim.x + threadIdx.x;
-
-    	// Add image to the shared memory
-    	if (threadIdx.x < n) {
-        	shared_image[threadIdx.x] = image[i];
-    	}
-
-    	// Wait for all threads to complete shared memory loading
-    	__syncthreads();
-
-    	// Check if the thread is within a valid value range
-    	if (i < n) {
-
-        	// Create a variable to save result
-        	float result = 0.0f;
-
-        	// Loop to get the convolution
-        	for (int j = -R; j <= R; ++j) {
-
-            		int idx = threadIdx.x + j;
-
-            		if (idx >= 0 && idx < n) {
-
-                		result += shared_image[idx] * mask[j + R];
-
-            		} else {
-                	
-                		result += 1.0f * mask[j + R];
-
-            		}
-        	}
-
-        // Assign value to output
-        output[i] = result;
-    }
+__global__ void stencil_kernel(const float* image, const float* mask, float* output, unsigned int n, unsigned int R_) {
+	extern __shared__ float shMemArray[];
+	
+	int R = (int)R_;
+	int t_id = threadIdx.x;
+	int t_len = blockDim.x;
+	int i = blockIdx.x * t_len + t_id;
+	
+	if (i >= n) {
+		return;
+	}
+	
+	// Copy mask to shared memory
+	float *shared_mask = shMemArray;
+	if (t_id < 2*R+1) {
+		shared_mask[t_id] = mask[t_id]; 
+	}
+	
+	// Initialize shared output
+	float *shared_output = shared_mask + 2*R + 1;
+	shared_output[t_id] = 0;
+	
+	// Copy image to shared memory
+	float *shared_image = shared_output + t_len + R;
+	shared_image[t_id] = image[i];
+	
+	if (t_id < R) {
+		shared_image[t_id - R] = i - R > 0 ? image[i - R] : 0;
+	} else if (t_len - t_id < R) {
+		shared_image[t_id + R] = i + R < n ? image[i + R] : 0;
+	}
+	
+	__syncthreads();
+	
+	for (int j = -R; j <= R; j++) {
+		shared_output[t_id] += shared_image[t_id + j] * shared_mask[j + R];
+	}
+	
+	// copy back
+	output[i] = shared_output[t_id];
 }
 
-
-
-__host__ void stencil(const float* image, const float* mask, float* output, unsigned int n, unsigned int R, unsigned int threads_per_block){
-
-	// Define grid and block dimensions	
-	// Define a 2D block
-        dim3 block(threads_per_block);
-
-        // Define a 2D grid
-        dim3 grid((n + block.x - 1) / block.x);
-
-        // Call the kernel function
-        stencil_kernel<<<grid, block>>>(image, mask, output, n, R);
-
-        // Tell the host waits for the kernel
-        // to finish printing before returning from main
-       	cudaDeviceSynchronize();
-
+__host__ void stencil(const float* image, const float* mask, float* output, unsigned int n, unsigned int R, unsigned int threads_per_block) {
+	int numBlock = (n - 1 + threads_per_block) / threads_per_block;
+	int shared_size = (1 + 4*R + 2*threads_per_block) * sizeof(float);
+	stencil_kernel<<<numBlock, threads_per_block, shared_size>>>(image, mask, output, n, R);
+	cudaDeviceSynchronize();
 }
-
