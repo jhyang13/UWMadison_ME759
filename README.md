@@ -1,4 +1,4 @@
-# repo759
+# repo_ME759
 ME 759 
 
 Name: Jiahui Yang, Mechanical Engineering
