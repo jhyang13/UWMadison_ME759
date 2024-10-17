@@ -2,6 +2,16 @@
 
 ## High Performance Computing for Applications in Engineering 
 
+### Course Objectives
+This course aims to: 
+- (a) provide an overview of advanced computing software and hardware;
+- (b) introduce CUDA for GPU-based parallel computing;
+- (c) teach OpenMP for CPU core parallelism;
+- (d) cover MPI for parallelism on CPU clusters; and
+- (e) help students choose the appropriate parallel computing model for various problems.
+
+Through lectures, assignments, and a final project, students will gain practical parallel programming skills applicable to their own projects. Although designed for engineering students, the course may benefit those from other disciplines seeking an applied approach to computing.
+
 ### Instructor
 - Dan Negrut
 - Office:	4150ME
