@@ -2,7 +2,7 @@
 
 ## High Performance Computing for Applications in Engineering 
 
-### Instructor:	
+### Instructor
 - Dan Negrut
 - Office:	4150ME
 - Phone:	608 772 0914
