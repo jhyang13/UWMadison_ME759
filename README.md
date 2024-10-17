@@ -1,9 +1,9 @@
-# repo_ME759
-ME 759 
+# ECE/ME/EMA/CS 759 – Fall 2023
+High Performance Computing for Applications in Engineering 
 
-Name: Jiahui Yang, Mechanical Engineering
-
-Email: jyang753@wisc.edu
+## Student
+- Name: Jiahui Yang, Mechanical Engineering
+- Email: jyang753@wisc.edu
 
 Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
 
