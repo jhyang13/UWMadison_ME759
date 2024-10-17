@@ -22,8 +22,6 @@ Through lectures, assignments, and a final project, students will gain practical
 - Name: Jiahui Yang, Mechanical Engineering
 - Email: jyang753@wisc.edu
 
-Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
-
 ### HW01
 - task4.sh
 - task6.cpp
