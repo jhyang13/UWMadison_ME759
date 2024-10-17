@@ -2,6 +2,12 @@
 
 ## High Performance Computing for Applications in Engineering 
 
+### Instructor:	
+- Dan Negrut
+- Office:	4150ME
+- Phone:	608 772 0914
+- E-Mail:	negrut@wisc.edu 
+
 ### Student
 - Name: Jiahui Yang, Mechanical Engineering
 - Email: jyang753@wisc.edu
