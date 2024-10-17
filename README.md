@@ -1,54 +1,55 @@
 # ECE/ME/EMA/CS 759 – Fall 2023
-High Performance Computing for Applications in Engineering 
 
-## Student
+## High Performance Computing for Applications in Engineering 
+
+### Student
 - Name: Jiahui Yang, Mechanical Engineering
 - Email: jyang753@wisc.edu
 
 Let me know if you can have access to my homework or not. ╰(●’◡’●)╮
 
-## HW01
+### HW01
 - task4.sh
 - task6.cpp
  
-## HW02
+### HW02
 - task1.cpp, scan.cpp
 - task2.cpp, convolution.cpp
 - task3.cpp, matmul.cpp
 
-## HW03
+### HW03
 - task1.cu
 - task2.cu
 - task3.cu, vscale.cu
 
-## HW04
+### HW04
 - task1.cu, matmul.cu
 - task2.cu, stencil.cu
 
-## HW05
+### HW05
 - task1.cu, matmul.cu
 - task2.cu, reduce.cu
 
-## HW06
+### HW06
 - task1.cu, mmul.cu
 - task2.cu, scan.cu
 
-## HW07
+### HW07
 - task1_cub.cu, task1_thrust.cu
 - task2.cu, count.cu
 - task3.cpp
 
-## HW08
+### HW08
 - task1.cpp, matmul.cpp
 - task2.cpp, convolution.cpp
 - task3.cpp, msort.cpp
 
-## HW09
+### HW09
 - task1.cpp, cluster.cpp
 - task2.cpp, montecarlo.cpp
 - task3.cpp
 
-## HW10
+### HW10
 - task1.cpp, optimize.cpp
 - task2.cpp, task2_pure_omp.cpp, reduce.cpp
 
