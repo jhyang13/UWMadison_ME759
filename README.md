@@ -13,14 +13,14 @@ This course aims to:
 Through lectures, assignments, and a final project, students will gain practical parallel programming skills applicable to their own projects. Although designed for engineering students, the course may benefit those from other disciplines seeking an applied approach to computing.
 
 ### Instructor
-- Dan Negrut
-- Office:	4150ME
-- Phone:	608 772 0914
-- E-Mail:	negrut@wisc.edu 
+- **Name:** Dan Negrut
+- **Office:**	4150ME
+- **Phone:**	608 772 0914
+- **E-Mail:**	negrut@wisc.edu 
 
 ### Student
-- Name: Jiahui Yang, Mechanical Engineering
-- Email: jyang753@wisc.edu
+- **Name:** Jiahui Yang, Mechanical Engineering
+- **Email:** jyang753@wisc.edu
 
 ### HW01
 - task4.sh
